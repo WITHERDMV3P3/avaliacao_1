@@ -17,6 +17,10 @@ import javax.swing.JList;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.Window.Type;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class telaum extends JFrame {
 
@@ -180,5 +184,22 @@ public class telaum extends JFrame {
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
 		btnLista_1.setBounds(760, 509, 122, 42);
 		contentPane.add(btnLista_1);
+		
+		try {
+			Class.forName("org.sqlite.JDBC");
+			Connection c= DriverManager.getConnection("jdbc:sqlite:D:\\anderson\\avaliacao"); 
+			Statement s = c.createStatement();
+			ResultSet rs = s.executeQuery("select codigo, codigodebarra, descricao,preco,marca,quantidade,categoria,unimed,obs from NewTable");
+			
+			while(rs.next()) {
+				Object o = new Object[]{rs.getObject("codigo"),rs.getObject("codigodebarra"),rs.getObject("descricao"),rs.getObject("preco"),rs.getObject("marca"),rs.getObject("quantidade"),rs.getObject("categoria"),rs.getObject("unimed"),rs.getObject("obs")};
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+
 	}
+	
 }

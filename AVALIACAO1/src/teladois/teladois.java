@@ -10,8 +10,11 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.table.DefaultTableModel;
 
 public class teladois extends JFrame {
 
@@ -58,7 +61,17 @@ public class teladois extends JFrame {
 		contentPane.add(scrollBar);
 		
 		table = new JTable();
-		table.setBounds(10, 79, 1333, 609);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		
+		
+		table.setBounds(10, 114, 1333, 574);
 		contentPane.add(table);
 		
 		btnVoltar = new JButton("VOLTAR");
@@ -80,5 +93,7 @@ public class teladois extends JFrame {
 		btnAlterar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnAlterar.setBounds(1164, 26, 122, 42);
 		contentPane.add(btnAlterar);
+		
+		
 	}
 }
