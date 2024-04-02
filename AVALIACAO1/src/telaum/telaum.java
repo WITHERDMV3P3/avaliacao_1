@@ -199,6 +199,7 @@ public class telaum extends JFrame {
 			e.printStackTrace();
 		}
 		
+		
 
 	}
 	
