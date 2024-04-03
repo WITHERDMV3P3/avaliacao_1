@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import teladois.teladois;
+
 import javax.swing.border.CompoundBorder;
 import java.awt.Frame;
 import javax.swing.JLabel;
@@ -21,8 +24,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class telaum extends JFrame {
+public class telaum extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -52,6 +57,16 @@ public class telaum extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		telaum chamar = new telaum();
+		chamar.metodoum();
+	}
+	
+	//TODO metodo responsavel pela acão;
+	public void actionPerformed(ActionEvent evento) {
+		
+	}
+	//////////////////////////////////////////////////////////////////////////////////////
+	public void metodoum() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -67,6 +82,7 @@ public class telaum extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public telaum() {
 		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -181,6 +197,7 @@ public class telaum extends JFrame {
 		contentPane.add(btnLista);
 		
 		btnLista_1 = new JButton("LISTA");
+		btnLista_1.addActionListener(this);
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
 		btnLista_1.setBounds(760, 509, 122, 42);
 		contentPane.add(btnLista_1);
@@ -198,9 +215,5 @@ public class telaum extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-
 	}
-	
 }

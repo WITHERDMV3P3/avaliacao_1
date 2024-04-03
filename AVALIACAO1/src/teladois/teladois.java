@@ -15,6 +15,8 @@ import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
+import android.view.View;
+import telaum.telaum;
 
 public class teladois extends JFrame {
 
@@ -93,6 +95,9 @@ public class teladois extends JFrame {
 		btnAlterar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnAlterar.setBounds(1164, 26, 122, 42);
 		contentPane.add(btnAlterar);
+		
+		new telaum().show();
+		
 		
 		
 	}
