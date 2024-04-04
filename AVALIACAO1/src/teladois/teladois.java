@@ -3,6 +3,8 @@ package teladois;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Window.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,24 +17,36 @@ import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
-import android.view.View;
 import telaum.telaum;
 
-public class teladois extends JFrame {
+public class teladois extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private JScrollBar scrollBar;
 	private JButton btnVoltar;
 	private JButton btnDetalhes;
 	private JButton btnDeletar;
 	private JButton btnAlterar;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		teladois chamar2 = new teladois();
+		chamar2.metododois();
+	}
+	///////////////////////////////////////////////////////////////////////////////////////
+	
+	//TODO metodo responsavel pela acão;
+		public void actionPerformed(ActionEvent evento) {
+			voltar();
+			
+		}
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+	public void metododois() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -58,25 +72,8 @@ public class teladois extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		scrollBar = new JScrollBar();
-		scrollBar.setBounds(1326, 79, 17, 609);
-		contentPane.add(scrollBar);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
-			}
-		));
-		
-		
-		table.setBounds(10, 114, 1333, 574);
-		contentPane.add(table);
-		
 		btnVoltar = new JButton("VOLTAR");
+		btnVoltar.addActionListener(this);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnVoltar.setBounds(36, 26, 122, 42);
 		contentPane.add(btnVoltar);
@@ -96,9 +93,25 @@ public class teladois extends JFrame {
 		btnAlterar.setBounds(1164, 26, 122, 42);
 		contentPane.add(btnAlterar);
 		
-		new telaum().show();
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(36, 103, 1250, 597);
+		contentPane.add(scrollPane);
 		
-		
-		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column"
+			}
+		));
+	}
+	
+	public void voltar() {
+		JFrame telaum = new telaum();
+		telaum.setVisible(true);
+		this.dispose();
 	}
 }

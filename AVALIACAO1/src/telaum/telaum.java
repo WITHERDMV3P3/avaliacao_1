@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.AncestorListener;
 
 import teladois.teladois;
 
@@ -26,8 +27,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Cursor;
+import javax.swing.JTextArea;
 
-public class telaum extends JFrame implements ActionListener {
+public class telaum extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -53,17 +57,10 @@ public class telaum extends JFrame implements ActionListener {
 	private JButton btnLista;
 	private JButton btnLista_1;
 
-	/**
-	 * Launch the application.
-	 */
+	///////////////////////////////////////////////////////////////////////////////////////
 	public static void main(String[] args) {
 		telaum chamar = new telaum();
 		chamar.metodoum();
-	}
-	
-	//TODO metodo responsavel pela acão;
-	public void actionPerformed(ActionEvent evento) {
-		
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 	public void metodoum() {
@@ -172,8 +169,10 @@ public class telaum extends JFrame implements ActionListener {
 		contentPane.add(lblObservap);
 		
 		textField_6 = new JTextField();
+		textField_6.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		textField_6.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_6.setColumns(10);
-		textField_6.setBounds(400, 368, 423, 98);
+		textField_6.setBounds(400, 368, 423, 42);
 		contentPane.add(textField_6);
 		
 		lblCategoria = new JLabel("Categoria");
@@ -188,18 +187,30 @@ public class telaum extends JFrame implements ActionListener {
 		
 		btnNewButton = new JButton("INSERIR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
-		btnNewButton.setBounds(400, 509, 122, 42);
+		btnNewButton.setBounds(399, 458, 122, 42);
 		contentPane.add(btnNewButton);
+		//////////////////////////////////////////////////////////////////////////////////////
 		
 		btnLista = new JButton("LIMPAR");
 		btnLista.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista.setBounds(581, 509, 122, 42);
+		btnLista.setBounds(580, 458, 122, 42);
 		contentPane.add(btnLista);
+		btnLista.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}});
 		
+		/////////////////////////////////////////////////////////////////////////////////////////////////
 		btnLista_1 = new JButton("LISTA");
-		btnLista_1.addActionListener(this);
+		btnLista_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				janela();	
+			}
+		});
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista_1.setBounds(760, 509, 122, 42);
+		btnLista_1.setBounds(759, 458, 122, 42);
 		contentPane.add(btnLista_1);
 		
 		try {
@@ -215,5 +226,22 @@ public class telaum extends JFrame implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void janela() {
+		JFrame janeladois = new teladois();
+		janeladois.setVisible(true);
+		this.dispose();
+	}
+	public void limpar() {
+		textField.setText("");
+		textField_1.setText("");
+		textField_2.setText("");
+		textField_3.setText("");
+		textField_4.setText("");
+		textField_5.setText("");
+		textField_6.setText("");
+		textField_7.setText("");
+		comboBox.setSelectedItem("UN");
 	}
 }
