@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 import javax.swing.JSeparator;
@@ -23,7 +24,9 @@ import javax.swing.JButton;
 import java.awt.Window.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,8 +38,6 @@ public class telaum extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblNewLabel;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JLabel lblCdigoDeBarras;
 	private JLabel lblDescrio;
@@ -47,8 +48,6 @@ public class telaum extends JFrame {
 	private JTextField textField_4;
 	private JLabel lblMarca;
 	private JTextField textField_5;
-	private JLabel lblUnidadeDeMedida;
-	private JComboBox comboBox;
 	private JLabel lblObservap;
 	private JTextField textField_6;
 	private JLabel lblCategoria;
@@ -90,24 +89,14 @@ public class telaum extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblNewLabel = new JLabel("Código");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel.setBounds(400, 90, 50, 18);
-		contentPane.add(lblNewLabel);
-		
-		textField = new JTextField();
-		textField.setBounds(400, 110, 99, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(532, 110, 291, 20);
+		textField_1.setBounds(400, 116, 291, 20);
 		contentPane.add(textField_1);
 		
 		lblCdigoDeBarras = new JLabel("Código de Barras");
 		lblCdigoDeBarras.setFont(new Font("Arial", Font.BOLD, 14));
-		lblCdigoDeBarras.setBounds(532, 90, 122, 18);
+		lblCdigoDeBarras.setBounds(400, 96, 122, 18);
 		contentPane.add(lblCdigoDeBarras);
 		
 		lblDescrio = new JLabel("Descrição");
@@ -150,29 +139,16 @@ public class telaum extends JFrame {
 		textField_5.setBounds(657, 248, 99, 20);
 		contentPane.add(textField_5);
 		
-		lblUnidadeDeMedida = new JLabel("Unidade de Medida");
-		lblUnidadeDeMedida.setFont(new Font("Arial", Font.BOLD, 14));
-		lblUnidadeDeMedida.setBounds(400, 293, 141, 18);
-		contentPane.add(lblUnidadeDeMedida);
-		
-		comboBox = new JComboBox();
-		comboBox.setFont(new Font("Arial", Font.BOLD, 14));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"UN", "KG"}));
-		comboBox.setName("");
-		comboBox.setToolTipText("");
-		comboBox.setBounds(400, 315, 141, 22);
-		contentPane.add(comboBox);
-		
 		lblObservap = new JLabel("Observação");
 		lblObservap.setFont(new Font("Arial", Font.BOLD, 14));
-		lblObservap.setBounds(400, 348, 86, 18);
+		lblObservap.setBounds(400, 292, 86, 18);
 		contentPane.add(lblObservap);
 		
 		textField_6 = new JTextField();
 		textField_6.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		textField_6.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_6.setColumns(10);
-		textField_6.setBounds(400, 368, 423, 42);
+		textField_6.setBounds(400, 312, 423, 42);
 		contentPane.add(textField_6);
 		
 		lblCategoria = new JLabel("Categoria");
@@ -187,7 +163,7 @@ public class telaum extends JFrame {
 		
 		btnNewButton = new JButton("INSERIR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
-		btnNewButton.setBounds(399, 458, 122, 42);
+		btnNewButton.setBounds(400, 393, 122, 42);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -197,9 +173,9 @@ public class telaum extends JFrame {
 		});
 		//////////////////////////////////////////////////////////////////////////////////////
 		
-		btnLista = new JButton("LIMPAR");
+		btnLista = new JButton("LIMPAR CAMPOS");
 		btnLista.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista.setBounds(580, 458, 122, 42);
+		btnLista.setBounds(575, 393, 151, 42);
 		contentPane.add(btnLista);
 		btnLista.addActionListener(new ActionListener(){
 			@Override
@@ -216,33 +192,9 @@ public class telaum extends JFrame {
 			}
 		});
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista_1.setBounds(759, 458, 122, 42);
+		btnLista_1.setBounds(760, 393, 122, 42);
 		contentPane.add(btnLista_1);}
 		
-		public void inserirdados() {
-		try {
-			Class.forName("org.sqlite.JDBC");
-			Connection c= DriverManager.getConnection("jdbc:sqlite:D:\\anderson\\avaliacao"); 
-			Statement s = c.createStatement();
-			ResultSet rs = s.executeQuery("insert into NewTable (codigo, codigodebarra, descricao,preco,marca,quantidade,categoria,unimed,obs)values(?,?,?,?,?,?,?,?,?)");
-			
-			while(rs.next()) {
-				Object o = new Object[]{
-						rs.getObject(1,textField.getText().toString()),
-						rs.getObject("codigodebarra"),
-						rs.getObject("descricao"),
-						rs.getObject("preco"),
-						rs.getObject("marca"),
-						rs.getObject("quantidade"),
-						rs.getObject("categoria"),
-						rs.getObject("unimed"),
-						rs.getObject("obs")};
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public void janela() {
 		JFrame janeladois = new teladois();
@@ -250,7 +202,6 @@ public class telaum extends JFrame {
 		this.dispose();
 	}
 	public void limpar() {
-		textField.setText("");
 		textField_1.setText("");
 		textField_2.setText("");
 		textField_3.setText("");
@@ -258,6 +209,33 @@ public class telaum extends JFrame {
 		textField_5.setText("");
 		textField_6.setText("");
 		textField_7.setText("");
-		comboBox.setSelectedItem("UN");
+	}
+	
+	private Connection connect(){
+		Connection c = null;
+	try {
+		Class.forName("org.sqlite.JDBC");
+		c = DriverManager.getConnection("jdbc:sqlite:D:\\anderson\\avaliacao"); 
+	} catch (Exception e) {
+		System.out.println(e.getMessage());
+	}
+	return c;
+}
+	
+	public void inserirdados() {
+		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,preco,marca,quantidade,categoria,unimed,obs) VALUES(?,?,?,?,?,?,?,?)";
+		try(Connection c = this.connect();
+				PreparedStatement registro = c.prepareStatement(sql)){
+			registro.setString(1, textField_1.getText().toString());
+			registro.setString(2, textField_2.getText().toString());
+			registro.setString(3, textField_3.getText().toString());
+			registro.setString(4, textField_4.getText().toString());
+			registro.setString(5, textField_5.getText().toString());
+			registro.setString(6, textField_7.getText().toString());
+			registro.setString(7, textField_6.getText().toString());
+			registro.execute();	
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
