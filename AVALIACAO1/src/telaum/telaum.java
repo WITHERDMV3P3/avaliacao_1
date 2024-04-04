@@ -189,6 +189,12 @@ public class telaum extends JFrame {
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
 		btnNewButton.setBounds(399, 458, 122, 42);
 		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				inserirdados();
+			}
+		});
 		//////////////////////////////////////////////////////////////////////////////////////
 		
 		btnLista = new JButton("LIMPAR");
@@ -211,16 +217,26 @@ public class telaum extends JFrame {
 		});
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
 		btnLista_1.setBounds(759, 458, 122, 42);
-		contentPane.add(btnLista_1);
+		contentPane.add(btnLista_1);}
 		
+		public void inserirdados() {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			Connection c= DriverManager.getConnection("jdbc:sqlite:D:\\anderson\\avaliacao"); 
 			Statement s = c.createStatement();
-			ResultSet rs = s.executeQuery("select codigo, codigodebarra, descricao,preco,marca,quantidade,categoria,unimed,obs from NewTable");
+			ResultSet rs = s.executeQuery("insert into NewTable (codigo, codigodebarra, descricao,preco,marca,quantidade,categoria,unimed,obs)values(?,?,?,?,?,?,?,?,?)");
 			
 			while(rs.next()) {
-				Object o = new Object[]{rs.getObject("codigo"),rs.getObject("codigodebarra"),rs.getObject("descricao"),rs.getObject("preco"),rs.getObject("marca"),rs.getObject("quantidade"),rs.getObject("categoria"),rs.getObject("unimed"),rs.getObject("obs")};
+				Object o = new Object[]{
+						rs.getObject(1,textField.getText().toString()),
+						rs.getObject("codigodebarra"),
+						rs.getObject("descricao"),
+						rs.getObject("preco"),
+						rs.getObject("marca"),
+						rs.getObject("quantidade"),
+						rs.getObject("categoria"),
+						rs.getObject("unimed"),
+						rs.getObject("obs")};
 			}
 			
 		} catch (Exception e) {
