@@ -19,6 +19,7 @@ import javax.swing.JCheckBox;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import java.awt.Window.Type;
@@ -99,9 +100,9 @@ public class telaum extends JFrame {
 		lblCdigoDeBarras.setBounds(400, 96, 122, 18);
 		contentPane.add(lblCdigoDeBarras);
 		
-		lblDescrio = new JLabel("Descrição");
+		lblDescrio = new JLabel("Descrição*");
 		lblDescrio.setFont(new Font("Arial", Font.BOLD, 14));
-		lblDescrio.setBounds(400, 163, 70, 18);
+		lblDescrio.setBounds(400, 163, 86, 18);
 		contentPane.add(lblDescrio);
 		
 		textField_2 = new JTextField();
@@ -109,7 +110,7 @@ public class telaum extends JFrame {
 		textField_2.setBounds(400, 183, 482, 20);
 		contentPane.add(textField_2);
 		
-		lblQuantidade = new JLabel("Quantidade");
+		lblQuantidade = new JLabel("Quantidade*");
 		lblQuantidade.setFont(new Font("Arial", Font.BOLD, 14));
 		lblQuantidade.setBounds(400, 228, 86, 18);
 		contentPane.add(lblQuantidade);
@@ -119,9 +120,9 @@ public class telaum extends JFrame {
 		textField_3.setBounds(400, 248, 99, 20);
 		contentPane.add(textField_3);
 		
-		lblPreo = new JLabel("Preço");
+		lblPreo = new JLabel("Preço*");
 		lblPreo.setFont(new Font("Arial", Font.BOLD, 14));
-		lblPreo.setBounds(532, 228, 41, 18);
+		lblPreo.setBounds(532, 228, 52, 18);
 		contentPane.add(lblPreo);
 		
 		textField_4 = new JTextField();
@@ -129,7 +130,7 @@ public class telaum extends JFrame {
 		textField_4.setBounds(532, 248, 99, 20);
 		contentPane.add(textField_4);
 		
-		lblMarca = new JLabel("Marca");
+		lblMarca = new JLabel("Marca*");
 		lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		lblMarca.setBounds(657, 228, 86, 18);
 		contentPane.add(lblMarca);
@@ -160,7 +161,7 @@ public class telaum extends JFrame {
 		textField_7.setColumns(10);
 		textField_7.setBounds(783, 248, 99, 20);
 		contentPane.add(textField_7);
-		
+/////////////////////////////////////////////////////////////////////////////////////////////
 		btnNewButton = new JButton("INSERIR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
 		btnNewButton.setBounds(400, 393, 122, 42);
@@ -168,14 +169,23 @@ public class telaum extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				inserirdados();
+				boolean checar =
+						naoativo(textField_2)||
+						naoativo(textField_3)||
+						naoativo(textField_4)||
+						naoativo(textField_5);
+				if(checar) {
+					aviso();
+				}else {
+					inserirdados();
+				}
 			}
 		});
-		//////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 		
 		btnLista = new JButton("LIMPAR CAMPOS");
 		btnLista.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista.setBounds(575, 393, 151, 42);
+		btnLista.setBounds(566, 393, 160, 42);
 		contentPane.add(btnLista);
 		btnLista.addActionListener(new ActionListener(){
 			@Override
@@ -183,7 +193,7 @@ public class telaum extends JFrame {
 				limpar();
 			}});
 		
-		/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 		btnLista_1 = new JButton("LISTA");
 		btnLista_1.addActionListener(new ActionListener() {
 			@Override
@@ -194,7 +204,7 @@ public class telaum extends JFrame {
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
 		btnLista_1.setBounds(760, 393, 122, 42);
 		contentPane.add(btnLista_1);}
-		
+//////////////////////////////////////////////////////////////////////////////////////////////		
 	
 	public void janela() {
 		JFrame janeladois = new teladois();
@@ -212,20 +222,20 @@ public class telaum extends JFrame {
 	}
 	
 	private Connection connect(){
-		Connection c = null;
+		Connection bancoavaliacao = null;
 	try {
 		Class.forName("org.sqlite.JDBC");
-		c = DriverManager.getConnection("jdbc:sqlite:D:\\anderson\\avaliacao"); 
+		bancoavaliacao = DriverManager.getConnection("jdbc:sqlite:D:\\anderson\\avaliacao");
 	} catch (Exception e) {
 		System.out.println(e.getMessage());
 	}
-	return c;
+	return bancoavaliacao;
 }
 	
 	public void inserirdados() {
-		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,preco,marca,quantidade,categoria,unimed,obs) VALUES(?,?,?,?,?,?,?,?)";
-		try(Connection c = this.connect();
-				PreparedStatement registro = c.prepareStatement(sql)){
+		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,preco,marca,quantidade,categoria,obs) VALUES(?,?,?,?,?,?,?)";
+		try(Connection bancoavaliacao = this.connect();
+				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
 			registro.setString(1, textField_1.getText().toString());
 			registro.setString(2, textField_2.getText().toString());
 			registro.setString(3, textField_3.getText().toString());
@@ -233,9 +243,22 @@ public class telaum extends JFrame {
 			registro.setString(5, textField_5.getText().toString());
 			registro.setString(6, textField_7.getText().toString());
 			registro.setString(7, textField_6.getText().toString());
-			registro.execute();	
+			registro.executeUpdate();
+			bancoavaliacao.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-		}
+	}
+}
+	
+	private boolean naoativo(JTextField teste){
+		return teste.getText().toString().trim().isEmpty();		
+	}
+	
+	private void aviso(){
+		JOptionPane avisoa = new JOptionPane("POR FAVOR, PREENCHA TODAS AS INFORMAÇÕES OBRIGATÓRIAS COM *(asterisco)");
+		javax.swing.JDialog dialogo = avisoa.createDialog(this,"ATENÇÃO");
+		java.awt.Toolkit.getDefaultToolkit().beep();
+		dialogo.setAlwaysOnTop(true);		
+		dialogo.setVisible(true);
 	}
 }
