@@ -260,6 +260,7 @@ public class telaum extends JFrame {
 		java.awt.Toolkit.getDefaultToolkit().beep();
 		dialogo.setAlwaysOnTop(true);		
 		dialogo.setVisible(true);
+		System.out.println("teste");
 	}
 	
 }
