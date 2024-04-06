@@ -50,9 +50,9 @@ public class telaum extends JFrame {
 	private JLabel lblMarca;
 	private JTextField textField_5;
 	private JLabel lblObservap;
-	private JTextField textField_6;
-	private JLabel lblCategoria;
 	private JTextField textField_7;
+	private JLabel lblCategoria;
+	private JTextField textField_6;
 	private JButton btnNewButton;
 	private JButton btnLista;
 	private JButton btnLista_1;
@@ -145,22 +145,22 @@ public class telaum extends JFrame {
 		lblObservap.setBounds(400, 292, 86, 18);
 		contentPane.add(lblObservap);
 		
-		textField_6 = new JTextField();
-		textField_6.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		textField_6.setHorizontalAlignment(SwingConstants.LEFT);
-		textField_6.setColumns(10);
-		textField_6.setBounds(400, 312, 423, 42);
-		contentPane.add(textField_6);
+		textField_7 = new JTextField();
+		textField_7.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		textField_7.setHorizontalAlignment(SwingConstants.LEFT);
+		textField_7.setColumns(10);
+		textField_7.setBounds(400, 312, 423, 42);
+		contentPane.add(textField_7);
 		
 		lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Arial", Font.BOLD, 14));
 		lblCategoria.setBounds(783, 228, 86, 18);
 		contentPane.add(lblCategoria);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(783, 248, 99, 20);
-		contentPane.add(textField_7);
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(783, 248, 99, 20);
+		contentPane.add(textField_6);
 /////////////////////////////////////////////////////////////////////////////////////////////
 		btnNewButton = new JButton("INSERIR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
@@ -217,11 +217,11 @@ public class telaum extends JFrame {
 		textField_3.setText("");
 		textField_4.setText("");
 		textField_5.setText("");
-		textField_6.setText("");
 		textField_7.setText("");
+		textField_6.setText("");
 	}
 	
-	private Connection connect(){
+	public Connection connect(){
 		Connection bancoavaliacao = null;
 	try {
 		Class.forName("org.sqlite.JDBC");
@@ -241,9 +241,9 @@ public class telaum extends JFrame {
 			registro.setString(3, textField_3.getText().toString());
 			registro.setString(4, textField_4.getText().toString());
 			registro.setString(5, textField_5.getText().toString());
-			registro.setString(6, textField_7.getText().toString());
-			registro.setString(7, textField_6.getText().toString());
-			registro.executeUpdate();
+			registro.setString(6, textField_6.getText().toString());
+			registro.setString(7, textField_7.getText().toString());
+			registro.execute();
 			bancoavaliacao.close();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -261,4 +261,5 @@ public class telaum extends JFrame {
 		dialogo.setAlwaysOnTop(true);		
 		dialogo.setVisible(true);
 	}
+	
 }

@@ -5,7 +5,13 @@ import java.awt.Frame;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
@@ -19,7 +25,7 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import telaum.telaum;
 
-public class teladois extends JFrame implements ActionListener {
+public class teladois extends telaum implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -29,6 +35,7 @@ public class teladois extends JFrame implements ActionListener {
 	private JButton btnDeletar;
 	private JButton btnAlterar;
 	private JScrollPane scrollPane;
+	private JButton btnAtualizar;
 
 	/**
 	 * Launch the application.
@@ -36,6 +43,7 @@ public class teladois extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		teladois chamar2 = new teladois();
 		chamar2.metododois();
+		
 	}
 	///////////////////////////////////////////////////////////////////////////////////////
 	
@@ -71,27 +79,45 @@ public class teladois extends JFrame implements ActionListener {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnVoltar = new JButton("VOLTAR");
-		btnVoltar.addActionListener(this);
 		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnVoltar.setBounds(36, 26, 122, 42);
 		contentPane.add(btnVoltar);
+		btnVoltar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				voltar();
+			}
+		});
 		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 		btnDetalhes = new JButton("DETALHES");
 		btnDetalhes.setFont(new Font("Arial", Font.BOLD, 14));
 		btnDetalhes.setBounds(882, 26, 122, 42);
 		contentPane.add(btnDetalhes);
-		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnDeletar.setBounds(1024, 26, 122, 42);
 		contentPane.add(btnDeletar);
-		
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAlterar = new JButton("ALTERAR");
 		btnAlterar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnAlterar.setBounds(1164, 26, 122, 42);
 		contentPane.add(btnAlterar);
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+		btnAtualizar = new JButton("ATUALIZAR");
+		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnAtualizar.setBounds(725, 26, 122, 42);
+		contentPane.add(btnAtualizar);
+		btnAtualizar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				atualizar();
+			}
+		});
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(36, 103, 1250, 597);
@@ -101,12 +127,23 @@ public class teladois extends JFrame implements ActionListener {
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
+				"CÓDIGO", "DESCRIÇÃO", "QUANTIDADE", "PREÇO"
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, Object.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.getColumnModel().getColumn(1).setPreferredWidth(266);
+		table.getColumnModel().getColumn(2).setPreferredWidth(108);
+		table.getColumnModel().getColumn(3).setPreferredWidth(106);
+		
+
 	}
 	
 	public void voltar() {
@@ -114,4 +151,44 @@ public class teladois extends JFrame implements ActionListener {
 		telaum.setVisible(true);
 		this.dispose();
 	}
-}
+	
+	public void atualizar() {
+		JFrame telaum = new telaum();
+		DefaultTableModel model1 = (DefaultTableModel) table.getModel();	
+		model1.setRowCount(0);
+		
+	String sql = "SELECT id,descricao,quantidade,preco from avaliacao";
+	Statement statement = null;
+	ResultSet resultset = null;
+	Connection conexao = null;
+	try {
+		conexao = connect();
+		statement = conexao.createStatement();
+		resultset = statement.executeQuery(sql);
+		
+		while(resultset.next()) {
+		Object[] rowData = {
+				resultset.getInt("id"),
+				resultset.getString("descricao"),
+				resultset.getInt("quantidade"),
+				resultset.getFloat("preco")
+		};
+		model1.addRow(rowData);
+		}
+	} catch (SQLException e) {
+		System.out.println("ERRO AO ATUALIZAR A TABELA: "+ e.getMessage());
+	} try {
+        if (resultset != null) {
+            resultset.close();
+        }
+        if (statement != null) {
+            statement.close();
+        }
+        if (conexao != null) {
+            conexao.close();
+        }
+    } catch (SQLException e) {
+        System.out.println("Erro ao fechar os recursos: " + e.getMessage());
+    }
+		}
+	}
