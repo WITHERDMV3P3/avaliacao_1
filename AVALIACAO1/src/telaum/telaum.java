@@ -233,7 +233,7 @@ public class telaum extends JFrame {
 }
 	
 	public void inserirdados() {
-		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,preco,marca,quantidade,categoria,obs) VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marcas,categoria,obs) VALUES(?,?,?,?,?,?,?)";
 		try(Connection bancoavaliacao = this.connect();
 				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
 			registro.setString(1, textField_1.getText().toString());
@@ -260,7 +260,6 @@ public class telaum extends JFrame {
 		java.awt.Toolkit.getDefaultToolkit().beep();
 		dialogo.setAlwaysOnTop(true);		
 		dialogo.setVisible(true);
-		System.out.println("teste");
 	}
 	
 }
