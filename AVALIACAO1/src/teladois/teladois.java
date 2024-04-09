@@ -25,6 +25,7 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import alterarinfo.telaalterar;
 import telaum.telaum;
 
 public class teladois extends telaum implements ActionListener {
@@ -50,11 +51,10 @@ public class teladois extends telaum implements ActionListener {
 	///////////////////////////////////////////////////////////////////////////////////////
 	
 	//TODO metodo responsavel pela acão;
-		public void actionPerformed(ActionEvent evento) {
-			voltar();
-			
-		}
-	
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		voltar();
+	}
 	///////////////////////////////////////////////////////////////////////////////////////
 	public void metododois() {
 		EventQueue.invokeLater(new Runnable() {
@@ -87,7 +87,6 @@ public class teladois extends telaum implements ActionListener {
 		btnVoltar.setBounds(36, 26, 122, 42);
 		contentPane.add(btnVoltar);
 		btnVoltar.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				voltar();
 			}
@@ -98,6 +97,11 @@ public class teladois extends telaum implements ActionListener {
 		btnDetalhes.setFont(new Font("Arial", Font.BOLD, 14));
 		btnDetalhes.setBounds(325, 26, 122, 42);
 		contentPane.add(btnDetalhes);
+		btnDetalhes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				chamartela();
+			}
+		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -156,6 +160,13 @@ public class teladois extends telaum implements ActionListener {
 
 	}
 	
+	public void chamartela() {
+		JFrame telaalterar = new telaalterar();
+		telaalterar.setVisible(true);
+		this.dispose();
+		this.setVisible(false);
+	}
+	
 	public void voltar() {
 		JFrame telaum = new telaum();
 		telaum.setVisible(true);
@@ -201,6 +212,7 @@ public class teladois extends telaum implements ActionListener {
         System.out.println("Erro ao fechar os recursos: " + e.getMessage());
     }
 		}
+			
 	public void excluirdados() {
 		JFrame telaum = new telaum();
 		String sql = "DELETE from avaliacao where id=?";
@@ -213,7 +225,6 @@ public class teladois extends telaum implements ActionListener {
 	      atualizar();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
-		}
-			  
-		}
+		}	
+	}
 	}
