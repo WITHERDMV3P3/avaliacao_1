@@ -34,6 +34,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
+import java.awt.Point;
 
 public class telaum extends JFrame {
 
@@ -69,6 +70,7 @@ public class telaum extends JFrame {
 				try {
 					telaum frame = new telaum();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,9 +83,8 @@ public class telaum extends JFrame {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public telaum() {
-		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1301, 756);
+		setBounds(100, 100, 566, 429);
 		contentPane = new JPanel();
 		contentPane.setBorder(new CompoundBorder());
 
@@ -92,79 +93,79 @@ public class telaum extends JFrame {
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(400, 116, 291, 20);
+		textField_1.setBounds(36, 45, 291, 20);
 		contentPane.add(textField_1);
 		
 		lblCdigoDeBarras = new JLabel("Código de Barras");
 		lblCdigoDeBarras.setFont(new Font("Arial", Font.BOLD, 14));
-		lblCdigoDeBarras.setBounds(400, 96, 122, 18);
+		lblCdigoDeBarras.setBounds(36, 25, 122, 18);
 		contentPane.add(lblCdigoDeBarras);
 		
 		lblDescrio = new JLabel("Descrição*");
 		lblDescrio.setFont(new Font("Arial", Font.BOLD, 14));
-		lblDescrio.setBounds(400, 163, 86, 18);
+		lblDescrio.setBounds(36, 92, 86, 18);
 		contentPane.add(lblDescrio);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(400, 183, 482, 20);
+		textField_2.setBounds(36, 112, 482, 20);
 		contentPane.add(textField_2);
 		
 		lblQuantidade = new JLabel("Quantidade*");
 		lblQuantidade.setFont(new Font("Arial", Font.BOLD, 14));
-		lblQuantidade.setBounds(400, 228, 86, 18);
+		lblQuantidade.setBounds(36, 157, 86, 18);
 		contentPane.add(lblQuantidade);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(400, 248, 99, 20);
+		textField_3.setBounds(36, 177, 99, 20);
 		contentPane.add(textField_3);
 		
 		lblPreo = new JLabel("Preço*");
 		lblPreo.setFont(new Font("Arial", Font.BOLD, 14));
-		lblPreo.setBounds(532, 228, 52, 18);
+		lblPreo.setBounds(168, 157, 52, 18);
 		contentPane.add(lblPreo);
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(532, 248, 99, 20);
+		textField_4.setBounds(168, 177, 99, 20);
 		contentPane.add(textField_4);
 		
 		lblMarca = new JLabel("Marca*");
 		lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
-		lblMarca.setBounds(657, 228, 86, 18);
+		lblMarca.setBounds(293, 157, 86, 18);
 		contentPane.add(lblMarca);
 		
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		textField_5.setBounds(657, 248, 99, 20);
+		textField_5.setBounds(293, 177, 99, 20);
 		contentPane.add(textField_5);
 		
 		lblObservap = new JLabel("Observação");
 		lblObservap.setFont(new Font("Arial", Font.BOLD, 14));
-		lblObservap.setBounds(400, 292, 86, 18);
+		lblObservap.setBounds(36, 221, 86, 18);
 		contentPane.add(lblObservap);
 		
 		textField_7 = new JTextField();
 		textField_7.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		textField_7.setHorizontalAlignment(SwingConstants.LEFT);
 		textField_7.setColumns(10);
-		textField_7.setBounds(400, 312, 423, 42);
+		textField_7.setBounds(36, 241, 423, 42);
 		contentPane.add(textField_7);
 		
 		lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Arial", Font.BOLD, 14));
-		lblCategoria.setBounds(783, 228, 86, 18);
+		lblCategoria.setBounds(419, 157, 86, 18);
 		contentPane.add(lblCategoria);
 		
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
-		textField_6.setBounds(783, 248, 99, 20);
+		textField_6.setBounds(419, 177, 99, 20);
 		contentPane.add(textField_6);
 /////////////////////////////////////////////////////////////////////////////////////////////
 		btnNewButton = new JButton("INSERIR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
-		btnNewButton.setBounds(400, 393, 122, 42);
+		btnNewButton.setBounds(36, 322, 122, 42);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -178,6 +179,7 @@ public class telaum extends JFrame {
 					aviso();
 				}else {
 					inserirdados();
+					limpar();
 				}
 			}
 		});
@@ -185,7 +187,7 @@ public class telaum extends JFrame {
 		
 		btnLista = new JButton("LIMPAR CAMPOS");
 		btnLista.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista.setBounds(566, 393, 160, 42);
+		btnLista.setBounds(202, 322, 160, 42);
 		contentPane.add(btnLista);
 		btnLista.addActionListener(new ActionListener(){
 			@Override
@@ -202,7 +204,7 @@ public class telaum extends JFrame {
 			}
 		});
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
-		btnLista_1.setBounds(760, 393, 122, 42);
+		btnLista_1.setBounds(396, 322, 122, 42);
 		contentPane.add(btnLista_1);}
 //////////////////////////////////////////////////////////////////////////////////////////////		
 	
@@ -233,7 +235,7 @@ public class telaum extends JFrame {
 }
 	
 	public void inserirdados() {
-		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marcas,categoria,obs) VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria,obs) VALUES(?,?,?,?,?,?,?)";
 		try(Connection bancoavaliacao = this.connect();
 				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
 			registro.setString(1, textField_1.getText().toString());

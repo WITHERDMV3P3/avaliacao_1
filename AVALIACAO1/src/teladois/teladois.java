@@ -23,6 +23,8 @@ import javax.management.modelmbean.ModelMBean;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 import telaum.telaum;
 
 public class teladois extends telaum implements ActionListener {
@@ -60,6 +62,7 @@ public class teladois extends telaum implements ActionListener {
 				try {
 					teladois frame = new teladois();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,9 +74,8 @@ public class teladois extends telaum implements ActionListener {
 	 * Create the frame.
 	 */
 	public teladois() {
-		setExtendedState(Frame.MAXIMIZED_BOTH);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1800, 784);
+		setBounds(100, 100, 765, 485);
 		contentPane = new JPanel();
 		contentPane.setBorder(new CompoundBorder());
 
@@ -94,22 +96,30 @@ public class teladois extends telaum implements ActionListener {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 		btnDetalhes = new JButton("DETALHES");
 		btnDetalhes.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDetalhes.setBounds(882, 26, 122, 42);
+		btnDetalhes.setBounds(325, 26, 122, 42);
 		contentPane.add(btnDetalhes);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDeletar.setBounds(1024, 26, 122, 42);
+		btnDeletar.setBounds(467, 26, 122, 42);
 		contentPane.add(btnDeletar);
+		btnDeletar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				excluirdados();
+				
+			}
+		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAlterar = new JButton("ALTERAR");
 		btnAlterar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnAlterar.setBounds(1164, 26, 122, 42);
+		btnAlterar.setBounds(607, 26, 122, 42);
 		contentPane.add(btnAlterar);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAtualizar = new JButton("ATUALIZAR");
 		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnAtualizar.setBounds(725, 26, 122, 42);
+		btnAtualizar.setBounds(182, 26, 122, 42);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.addActionListener(new ActionListener() {
 			@Override
@@ -120,7 +130,7 @@ public class teladois extends telaum implements ActionListener {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(36, 103, 1250, 597);
+		scrollPane.setBounds(10, 103, 729, 343);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -190,5 +200,20 @@ public class teladois extends telaum implements ActionListener {
     } catch (SQLException e) {
         System.out.println("Erro ao fechar os recursos: " + e.getMessage());
     }
+		}
+	public void excluirdados() {
+		JFrame telaum = new telaum();
+		String sql = "DELETE from avaliacao where id=?";
+			try(Connection bancoavaliacao = this.connect();
+					PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
+				for (int linha :table.getSelectedRows()) {
+	              registro.setInt(1,Integer.parseInt(table.getValueAt( linha , 0).toString()));
+	          registro.execute();
+	          }
+	      atualizar();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+		}
+			  
 		}
 	}
