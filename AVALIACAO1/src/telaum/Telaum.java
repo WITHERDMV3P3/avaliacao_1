@@ -204,7 +204,7 @@ public class Telaum extends JFrame {
 		janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		janeladois.setLocationRelativeTo(null);
 	}
-	public void limpar() {
+	public void limpar() { // limpar os JTextFields para ficar vazio
 		textField.setText("");
 		textField_2.setText("");
 		textField_3.setText("");
@@ -213,7 +213,7 @@ public class Telaum extends JFrame {
 		textField_6.setText("");
 	}
 	
-	public Connection connect(){
+	public Connection connect(){ // conexao com o banco de dados
 		Connection bancoavaliacao = null;
 	try {
 		Class.forName("org.sqlite.JDBC");
@@ -225,7 +225,7 @@ public class Telaum extends JFrame {
 }
 	
 	public void inserirdados() {
-		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria) VALUES(?,?,?,?,?,?)"; //click do botão vai inserir dados essas sao os metodos para conexão e inserção de dados
 		try(Connection bancoavaliacao = this.connect();
 				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
 			registro.setString(1, textField.getText().toString());
@@ -241,11 +241,11 @@ public class Telaum extends JFrame {
 	}
 }
 	
-	private boolean naoativo(JTextField teste){
+	private boolean naoativo(JTextField teste){ // teste para verificar se todos os campos foram inseridos dados para não ficar vazio
 		return teste.getText().toString().trim().isEmpty();		
 	}
 	
-	private void aviso(){
+	private void aviso(){ // aviso para o usuário inserir os dados
 		JOptionPane avisoa = new JOptionPane("POR FAVOR, PREENCHA TODAS AS INFORMAÇÕES OBRIGATÓRIAS COM *(asterisco)");
 		javax.swing.JDialog dialogo = avisoa.createDialog(this,"ATENÇÃO");
 		java.awt.Toolkit.getDefaultToolkit().beep();

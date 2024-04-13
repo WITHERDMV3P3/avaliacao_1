@@ -144,19 +144,17 @@ public class Teladois extends Telaum implements ActionListener {
 	}
 	
 	public void atualizar() {
-		JFrame telaum = new Telaum();
+		Telaum telaum = new Telaum();
 		DefaultTableModel model1 = (DefaultTableModel) table.getModel();	
 		model1.setRowCount(0);
 		
 	String sql = "SELECT * from avaliacao";
 	Statement statement = null;
 	ResultSet resultset = null;
-	Connection conexao = null;
-	try {
-		conexao = connect();
-		statement = conexao.createStatement();
+	try(Connection bancoavaliacao = this.connect();
+					PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
+		statement = connect().createStatement();
 		resultset = statement.executeQuery(sql);
-		
 		while(resultset.next()) {
 		Object[] rowData = {
 				resultset.getInt("id"),
@@ -174,12 +172,6 @@ public class Teladois extends Telaum implements ActionListener {
 	} try {
         if (resultset != null) {
             resultset.close();
-        }
-        if (statement != null) {
-            statement.close();
-        }
-        if (conexao != null) {
-            conexao.close();
         }
     } catch (SQLException e) {
         System.out.println("Erro ao fechar os recursos: " + e.getMessage());

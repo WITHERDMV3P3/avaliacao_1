@@ -70,6 +70,7 @@ public class Telaalterar extends JFrame {
 		});
 	}
 	public Telaalterar() {
+		setResizable(false);
 		setTitle("TELA ALTERAR");
 		setType(Type.UTILITY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
