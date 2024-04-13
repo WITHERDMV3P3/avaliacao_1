@@ -5,6 +5,8 @@ import java.awt.Frame;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,7 +27,7 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import alterarinfo.telaalterar;
+import telaalterar.Telaalterar;
 import telaum.telaum;
 
 public class teladois extends telaum implements ActionListener {
@@ -33,10 +35,8 @@ public class teladois extends telaum implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private JButton btnVoltar;
 	private JButton btnDetalhes;
 	private JButton btnDeletar;
-	private JButton btnAlterar;
 	private JScrollPane scrollPane;
 	private JButton btnAtualizar;
 
@@ -52,8 +52,6 @@ public class teladois extends telaum implements ActionListener {
 	
 	//TODO metodo responsavel pela acão;
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		voltar();
 	}
 	///////////////////////////////////////////////////////////////////////////////////////
 	public void metododois() {
@@ -74,38 +72,30 @@ public class teladois extends telaum implements ActionListener {
 	 * Create the frame.
 	 */
 	public teladois() {
+		setTitle("TELA LISTA");
+		setType(Type.UTILITY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 765, 485);
+		setBounds(100, 100, 741, 517);
 		contentPane = new JPanel();
 		contentPane.setBorder(new CompoundBorder());
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		btnVoltar = new JButton("VOLTAR");
-		btnVoltar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnVoltar.setBounds(36, 26, 122, 42);
-		contentPane.add(btnVoltar);
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				voltar();
-			}
-		});
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
-		btnDetalhes = new JButton("DETALHES");
+		btnDetalhes = new JButton("ALTERAR");
 		btnDetalhes.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDetalhes.setBounds(325, 26, 122, 42);
+		btnDetalhes.setBounds(446, 27, 122, 42);
 		contentPane.add(btnDetalhes);
 		btnDetalhes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				chamartela();
+				alterar();
 			}
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDeletar.setBounds(467, 26, 122, 42);
+		btnDeletar.setBounds(295, 27, 122, 42);
 		contentPane.add(btnDeletar);
 		btnDeletar.addActionListener(new ActionListener() {
 			
@@ -116,14 +106,9 @@ public class teladois extends telaum implements ActionListener {
 			}
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		btnAlterar = new JButton("ALTERAR");
-		btnAlterar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnAlterar.setBounds(607, 26, 122, 42);
-		contentPane.add(btnAlterar);
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAtualizar = new JButton("ATUALIZAR");
 		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnAtualizar.setBounds(182, 26, 122, 42);
+		btnAtualizar.setBounds(143, 27, 122, 42);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.addActionListener(new ActionListener() {
 			@Override
@@ -134,20 +119,27 @@ public class teladois extends telaum implements ActionListener {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 103, 729, 343);
+		scrollPane.setBounds(10, 103, 705, 343);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton()==1) {
+				mudardados();
+				}
+			}
+		});
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"CÓDIGO", "DESCRIÇÃO", "QUANTIDADE", "PREÇO"
+				"C\u00D3DIGO", "DESCRI\u00C7\u00C3O", "QUANTIDADE", "PRE\u00C7O", "MARCA", "CATEGORIA"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, Object.class, String.class
+				Integer.class, String.class, Object.class, String.class, Object.class, Object.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -160,25 +152,27 @@ public class teladois extends telaum implements ActionListener {
 
 	}
 	
-	public void chamartela() {
-		JFrame telaalterar = new telaalterar();
-		telaalterar.setVisible(true);
-		this.dispose();
-		this.setVisible(false);
-	}
-	
-	public void voltar() {
+	public void alterar() {
 		JFrame telaum = new telaum();
-		telaum.setVisible(true);
-		this.dispose();
-	}
+		String sql = "UPDATE avaliacao SET codigodebarra = ?, descricao= ?,quantidade= ?,preco= ?,marca= ?,categoria= ?  WHERE id=?";
+			try(Connection bancoavaliacao = this.connect();
+					PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
+					int i = 1;
+	           
+	          registro.execute();
+	          
+	      atualizar();}
+			 catch (SQLException e) {
+				System.out.println(e.getMessage());
+		}
+			}
 	
 	public void atualizar() {
 		JFrame telaum = new telaum();
 		DefaultTableModel model1 = (DefaultTableModel) table.getModel();	
 		model1.setRowCount(0);
 		
-	String sql = "SELECT id,descricao,quantidade,preco from avaliacao";
+	String sql = "SELECT * from avaliacao";
 	Statement statement = null;
 	ResultSet resultset = null;
 	Connection conexao = null;
@@ -192,7 +186,9 @@ public class teladois extends telaum implements ActionListener {
 				resultset.getInt("id"),
 				resultset.getString("descricao"),
 				resultset.getInt("quantidade"),
-				resultset.getFloat("preco")
+				resultset.getFloat("preco"),
+				resultset.getString("marca"),
+				resultset.getString("categoria"),
 		};
 		model1.addRow(rowData);
 		}
@@ -225,6 +221,22 @@ public class teladois extends telaum implements ActionListener {
 	      atualizar();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
-		}	
+		}
 	}
+	public void mudardados() {
+			try {
+			DefaultTableModel model1 = (DefaultTableModel) table.getModel();
+			model1.getValueAt(table.getSelectedRow(),0).toString();
+			JFrame Telaalterar = new Telaalterar();
+			Telaalterar.setVisible(true);
+			telaum janeladois = new teladois();
+			janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			janeladois.setLocationRelativeTo(null);
+			this.dispose();
+			}
+			 catch (Exception e1){
+				e1.printStackTrace();
+			}
+		}
+	
 	}

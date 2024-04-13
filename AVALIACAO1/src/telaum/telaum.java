@@ -50,8 +50,6 @@ public class telaum extends JFrame {
 	private JTextField textField_4;
 	private JLabel lblMarca;
 	private JTextField textField_5;
-	private JLabel lblObservap;
-	private JTextField textField_7;
 	private JLabel lblCategoria;
 	private JTextField textField_6;
 	private JButton btnNewButton;
@@ -83,6 +81,8 @@ public class telaum extends JFrame {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public telaum() {
+		setResizable(false);
+		setTitle("TELA CADASTRO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 566, 429);
 		contentPane = new JPanel();
@@ -140,18 +140,6 @@ public class telaum extends JFrame {
 		textField_5.setColumns(10);
 		textField_5.setBounds(293, 177, 99, 20);
 		contentPane.add(textField_5);
-		
-		lblObservap = new JLabel("Observação");
-		lblObservap.setFont(new Font("Arial", Font.BOLD, 14));
-		lblObservap.setBounds(36, 221, 86, 18);
-		contentPane.add(lblObservap);
-		
-		textField_7 = new JTextField();
-		textField_7.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		textField_7.setHorizontalAlignment(SwingConstants.LEFT);
-		textField_7.setColumns(10);
-		textField_7.setBounds(36, 241, 423, 42);
-		contentPane.add(textField_7);
 		
 		lblCategoria = new JLabel("Categoria");
 		lblCategoria.setFont(new Font("Arial", Font.BOLD, 14));
@@ -211,7 +199,9 @@ public class telaum extends JFrame {
 	public void janela() {
 		JFrame janeladois = new teladois();
 		janeladois.setVisible(true);
-		this.dispose();
+		telaum telaum = new telaum();
+		janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		janeladois.setLocationRelativeTo(null);
 	}
 	public void limpar() {
 		textField_1.setText("");
@@ -219,7 +209,6 @@ public class telaum extends JFrame {
 		textField_3.setText("");
 		textField_4.setText("");
 		textField_5.setText("");
-		textField_7.setText("");
 		textField_6.setText("");
 	}
 	
@@ -235,7 +224,7 @@ public class telaum extends JFrame {
 }
 	
 	public void inserirdados() {
-		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria,obs) VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria) VALUES(?,?,?,?,?,?)";
 		try(Connection bancoavaliacao = this.connect();
 				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
 			registro.setString(1, textField_1.getText().toString());
@@ -244,7 +233,6 @@ public class telaum extends JFrame {
 			registro.setString(4, textField_4.getText().toString());
 			registro.setString(5, textField_5.getText().toString());
 			registro.setString(6, textField_6.getText().toString());
-			registro.setString(7, textField_7.getText().toString());
 			registro.execute();
 			bancoavaliacao.close();
 		} catch (SQLException e) {
