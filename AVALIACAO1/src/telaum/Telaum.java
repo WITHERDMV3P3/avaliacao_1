@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorListener;
 
-import teladois.teladois;
+import teladois.Teladois;
 
 import javax.swing.border.CompoundBorder;
 import java.awt.Frame;
@@ -36,29 +36,30 @@ import java.awt.Cursor;
 import javax.swing.JTextArea;
 import java.awt.Point;
 
-public class telaum extends JFrame {
+public class Telaum extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField_1;
+	public JTextField textField_1;
 	private JLabel lblCdigoDeBarras;
 	private JLabel lblDescrio;
-	private JTextField textField_2;
+	public JTextField textField_2;
 	private JLabel lblQuantidade;
-	private JTextField textField_3;
+	public JTextField textField_3;
 	private JLabel lblPreo;
-	private JTextField textField_4;
+	public JTextField textField_4;
 	private JLabel lblMarca;
-	private JTextField textField_5;
+	public JTextField textField_5;
 	private JLabel lblCategoria;
-	private JTextField textField_6;
+	public JTextField textField_6;
 	private JButton btnNewButton;
 	private JButton btnLista;
 	private JButton btnLista_1;
+	private JTextField textField;
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	public static void main(String[] args) {
-		telaum chamar = new telaum();
+		Telaum chamar = new Telaum();
 		chamar.metodoum();
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +67,7 @@ public class telaum extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaum frame = new telaum();
+					Telaum frame = new Telaum();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -80,7 +81,7 @@ public class telaum extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public telaum() {
+	public Telaum() {
 		setResizable(false);
 		setTitle("TELA CADASTRO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,10 +92,6 @@ public class telaum extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(36, 45, 291, 20);
-		contentPane.add(textField_1);
 		
 		lblCdigoDeBarras = new JLabel("Código de Barras");
 		lblCdigoDeBarras.setFont(new Font("Arial", Font.BOLD, 14));
@@ -193,18 +190,22 @@ public class telaum extends JFrame {
 		});
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
 		btnLista_1.setBounds(396, 322, 122, 42);
-		contentPane.add(btnLista_1);}
+		contentPane.add(btnLista_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(36, 48, 482, 20);
+		contentPane.add(textField);}
 //////////////////////////////////////////////////////////////////////////////////////////////		
 	
 	public void janela() {
-		JFrame janeladois = new teladois();
+		JFrame janeladois = new Teladois();
 		janeladois.setVisible(true);
-		telaum telaum = new telaum();
 		janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		janeladois.setLocationRelativeTo(null);
 	}
 	public void limpar() {
-		textField_1.setText("");
+		textField.setText("");
 		textField_2.setText("");
 		textField_3.setText("");
 		textField_4.setText("");
@@ -227,7 +228,7 @@ public class telaum extends JFrame {
 		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria) VALUES(?,?,?,?,?,?)";
 		try(Connection bancoavaliacao = this.connect();
 				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
-			registro.setString(1, textField_1.getText().toString());
+			registro.setString(1, textField.getText().toString());
 			registro.setString(2, textField_2.getText().toString());
 			registro.setString(3, textField_3.getText().toString());
 			registro.setString(4, textField_4.getText().toString());
@@ -251,5 +252,4 @@ public class telaum extends JFrame {
 		dialogo.setAlwaysOnTop(true);		
 		dialogo.setVisible(true);
 	}
-	
 }
