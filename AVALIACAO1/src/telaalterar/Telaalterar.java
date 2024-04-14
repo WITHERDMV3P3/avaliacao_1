@@ -147,6 +147,8 @@ public class Telaalterar extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		textField = new JTextField();
+		textField.setEditable(false);
+		textField.setEnabled(false);
 		textField.setColumns(10);
 		textField.setBounds(34, 82, 99, 20);
 		contentPane.add(textField);

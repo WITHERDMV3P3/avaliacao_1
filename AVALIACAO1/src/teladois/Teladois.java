@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -40,6 +41,7 @@ public class Teladois extends Telaum implements ActionListener {
 	private JButton btnDeletar;
 	private JScrollPane scrollPane;
 	private JButton btnAtualizar;
+	private JButton btnDetalhes_1;
 
 	/**
 	 * Launch the application.
@@ -85,25 +87,39 @@ public class Teladois extends Telaum implements ActionListener {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDeletar.setBounds(395, 21, 122, 42);
+		btnDeletar.setBounds(342, 22, 122, 42);
 		contentPane.add(btnDeletar);
 		btnDeletar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				deletado();
+			}
+
+			private void deletado() {
+				Object[] opcoes = {"SIM" , "NÃO"}; 
+				int valor = JOptionPane.showOptionDialog(null, "DESEJA REALMENTE EXCLUIR?","EXCLUIR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);				
+			if(valor == 0) {
 				excluirdados();
-				
+			    atualizar();
+			}
 			}
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAtualizar = new JButton("ATUALIZAR");
 		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnAtualizar.setBounds(243, 21, 122, 42);
+		btnAtualizar.setBounds(190, 22, 122, 42);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				atualizar();
+				atualizado();
+			}
+
+			private void atualizado() {
+				// TODO Auto-generated method stub
+				JOptionPane.showMessageDialog(null, "ATUALIZADO COM SUCESSO","ATENÇÃO",1);
 			}
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
@@ -113,13 +129,6 @@ public class Teladois extends Telaum implements ActionListener {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				if(e.getButton()==1) {
-				mudardados();
-				}
-			}
-		});
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -135,6 +144,24 @@ public class Teladois extends Telaum implements ActionListener {
 				return columnTypes[columnIndex];
 			}
 		});
+		
+		btnDetalhes_1 = new JButton("DETALHES");
+		btnDetalhes_1.setFont(new Font("Arial", Font.BOLD, 14));
+		btnDetalhes_1.setBounds(488, 22, 122, 42);
+		contentPane.add(btnDetalhes_1);
+		btnDetalhes_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int tabela = table.getSelectedColumnCount();
+				if(tabela==0) {
+				JOptionPane.showMessageDialog(null, "SELECIONE A LISTA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+				}else {
+					mudardados();
+				}			
+			}
+		});
+		
 		table.getColumnModel().getColumn(1).setPreferredWidth(142);
 		table.getColumnModel().getColumn(2).setPreferredWidth(266);
 		table.getColumnModel().getColumn(3).setPreferredWidth(108);
@@ -187,7 +214,6 @@ public class Teladois extends Telaum implements ActionListener {
 	              registro.setInt(1,Integer.parseInt(table.getValueAt( linha , 0).toString()));
 	          registro.execute();
 	          }
-	      atualizar();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 		}

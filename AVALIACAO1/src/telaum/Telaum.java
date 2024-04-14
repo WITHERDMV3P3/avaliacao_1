@@ -161,7 +161,7 @@ public class Telaum extends JFrame {
 						naoativo(textField_4)||
 						naoativo(textField_5);
 				if(checar) {
-					aviso();
+					avisoinserir();
 				}else {
 					inserirdados();
 					limpar();
@@ -178,6 +178,7 @@ public class Telaum extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				limpar();
+				limpador();
 			}});
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,10 +200,11 @@ public class Telaum extends JFrame {
 //////////////////////////////////////////////////////////////////////////////////////////////		
 	
 	public void janela() {
-		JFrame janeladois = new Teladois();
+		Teladois janeladois = new Teladois();
 		janeladois.setVisible(true);
 		janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		janeladois.setLocationRelativeTo(null);
+		janeladois.atualizar();
 	}
 	public void limpar() { // limpar os JTextFields para ficar vazio
 		textField.setText("");
@@ -245,11 +247,11 @@ public class Telaum extends JFrame {
 		return teste.getText().toString().trim().isEmpty();		
 	}
 	
-	private void aviso(){ // aviso para o usuário inserir os dados
-		JOptionPane avisoa = new JOptionPane("POR FAVOR, PREENCHA TODAS AS INFORMAÇÕES OBRIGATÓRIAS COM *(asterisco)");
-		javax.swing.JDialog dialogo = avisoa.createDialog(this,"ATENÇÃO");
-		java.awt.Toolkit.getDefaultToolkit().beep();
-		dialogo.setAlwaysOnTop(true);		
-		dialogo.setVisible(true);
+	private void avisoinserir(){ // aviso para o usuário inserir os dados
+		JOptionPane.showMessageDialog(null, "POR FAVOR, PREENCHA TODAS AS INFORMAÇÕES OBRIGATÓRIAS COM *(asterisco)","ATENÇÃO",2);
+	}
+	private void limpador() { // aviso para o usuário que os dados foram deletados
+		JOptionPane.showMessageDialog(null, "CAMPOS LIMPOS COM SUCESSO ✔","ATENÇÃO",1);
+
 	}
 }
