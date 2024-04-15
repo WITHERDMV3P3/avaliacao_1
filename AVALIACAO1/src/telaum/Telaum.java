@@ -224,9 +224,9 @@ public class Telaum extends JFrame {
 		System.out.println(e.getMessage());
 	}
 	return bancoavaliacao;
-}
-	
-	public void inserirdados() {
+	}
+		
+			public void inserirdados() {
 		String sql = "INSERT INTO avaliacao(codigodebarra,descricao,quantidade,preco,marca,categoria) VALUES(?,?,?,?,?,?)"; //click do botão vai inserir dados essas sao os metodos para conexão e inserção de dados
 		try(Connection bancoavaliacao = this.connect();
 				PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){

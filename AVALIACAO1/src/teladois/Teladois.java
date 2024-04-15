@@ -84,6 +84,18 @@ public class Teladois extends Telaum implements ActionListener {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		btnDetalhes_1 = new JButton("DETALHES");
+		btnDetalhes_1.setFont(new Font("Arial", Font.BOLD, 14));
+		btnDetalhes_1.setBounds(488, 22, 122, 42);
+		contentPane.add(btnDetalhes_1);
+		btnDetalhes_1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				avisodetalhes();			
+			}
+		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
@@ -139,25 +151,12 @@ public class Teladois extends Telaum implements ActionListener {
 				return columnTypes[columnIndex];
 			}
 		});
-		
-		btnDetalhes_1 = new JButton("DETALHES");
-		btnDetalhes_1.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDetalhes_1.setBounds(488, 22, 122, 42);
-		contentPane.add(btnDetalhes_1);
-		btnDetalhes_1.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				avisodetalhes();			
-			}
-		});
-		
 		table.getColumnModel().getColumn(1).setPreferredWidth(142);
-		table.getColumnModel().getColumn(2).setPreferredWidth(266);
+		table.getColumnModel().getColumn(2).setPreferredWidth(144);
 		table.getColumnModel().getColumn(3).setPreferredWidth(108);
 		table.getColumnModel().getColumn(4).setPreferredWidth(106);
-		
-
+		table.getColumnModel().getColumn(5).setPreferredWidth(100);
+		table.getColumnModel().getColumn(6).setPreferredWidth(100);
 	}
 	public void atualizar() {
 		Telaum telaum = new Telaum();
@@ -243,7 +242,6 @@ public class Teladois extends Telaum implements ActionListener {
 		tabela = table.getSelectedColumnCount();
 		if(tabela==0) {
 			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
-			atualizar();
 		}
 		else if(tabela==1) {
 			Object[] opcoes = {"SIM" , "NÃO"}; 
