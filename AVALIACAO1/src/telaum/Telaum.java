@@ -233,7 +233,7 @@ public class Telaum extends JFrame {
 			registro.setString(1, textField.getText().toString());
 			registro.setString(2, textField_2.getText().toString());
 			registro.setString(3, textField_3.getText().toString());
-			registro.setString(4, textField_4.getText().toString());
+			registro.setString(4, textField_4.getText().toString().replaceAll(",", "."));
 			registro.setString(5, textField_5.getText().toString());
 			registro.setString(6, textField_6.getText().toString());
 			registro.execute();
@@ -241,6 +241,7 @@ public class Telaum extends JFrame {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 	}
+		JOptionPane.showMessageDialog(null, "DADOS INSERIDOS COM SUCESSO!!!","ATENÇÃO",1);
 }
 	
 	private boolean naoativo(JTextField teste){ // teste para verificar se todos os campos foram inseridos dados para não ficar vazio

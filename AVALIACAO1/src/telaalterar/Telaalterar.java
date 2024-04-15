@@ -21,6 +21,8 @@ import telaum.Telaum;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.TextField;
 
@@ -168,6 +170,7 @@ public class Telaalterar extends JFrame {
 	
 	public void alterardados(){
 		Telaum telaum = new Telaum();
+		Telaalterar telaalterar = new Telaalterar();
 		telaum.connect();
 			String sql = "UPDATE avaliacao SET codigodebarra = ?, descricao = ?, quantidade = ? , preco= ?, marca = ?, categoria = ? WHERE id = ? ";
 			try(Connection bancoavaliacao = telaum.connect();
@@ -184,8 +187,10 @@ public class Telaalterar extends JFrame {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 		}
+			JOptionPane.showMessageDialog(null, "DADOS ATUALIZADOS COM SUCESSO!!!","ATENÇÃO",1);
+
 	}
-	public void preenchercampos(int codigo, int codigodebarra, String descricao, int quantidade, float preco, String marca, String categoria ) {
+	public void preenchercampos(int codigo, String codigodebarra, String descricao, int quantidade, String preco, String marca, String categoria ) {
 		textField.setText(String.valueOf(codigo));
 		textField_1.setText(String.valueOf(codigodebarra));
 		textField_2.setText(descricao);

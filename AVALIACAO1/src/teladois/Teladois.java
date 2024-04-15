@@ -77,7 +77,7 @@ public class Teladois extends Telaum implements ActionListener {
 	public Teladois() {
 		setTitle("TELA LISTA");
 		setType(Type.UTILITY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 839, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new CompoundBorder());
@@ -97,12 +97,7 @@ public class Teladois extends Telaum implements ActionListener {
 			}
 
 			private void deletado() {
-				Object[] opcoes = {"SIM" , "NÃO"}; 
-				int valor = JOptionPane.showOptionDialog(null, "DESEJA REALMENTE EXCLUIR?","EXCLUIR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);				
-			if(valor == 0) {
-				excluirdados();
-			    atualizar();
-			}
+				avisodeletar();
 			}
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -153,12 +148,7 @@ public class Teladois extends Telaum implements ActionListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int tabela = table.getSelectedColumnCount();
-				if(tabela==0) {
-				JOptionPane.showMessageDialog(null, "SELECIONE A LISTA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
-				}else {
-					mudardados();
-				}			
+				avisodetalhes();			
 			}
 		});
 		
@@ -169,7 +159,6 @@ public class Teladois extends Telaum implements ActionListener {
 		
 
 	}
-	
 	public void atualizar() {
 		Telaum telaum = new Telaum();
 		DefaultTableModel model1 = (DefaultTableModel) table.getModel();	
@@ -185,10 +174,10 @@ public class Teladois extends Telaum implements ActionListener {
 		while(resultset.next()) {
 		Object[] rowData = {
 				resultset.getInt("id"),
-				resultset.getInt("codigodebarra"),
+				resultset.getString("codigodebarra"),
 				resultset.getString("descricao"),
 				resultset.getInt("quantidade"),
-				resultset.getFloat("preco"),
+				resultset.getString("preco"),
 				resultset.getString("marca"),
 				resultset.getString("categoria"),
 		};
@@ -223,16 +212,16 @@ public class Teladois extends Telaum implements ActionListener {
 			DefaultTableModel model1 = (DefaultTableModel) table.getModel();
 			model1.getValueAt(table.getSelectedRow(),0).toString();
 			int codigo = (int) table.getValueAt(table.getSelectedRow(), 0);
-			int codigodebarra = (int) table.getValueAt(table.getSelectedRow(), 1);
+			String codigodebarra = (String) table.getValueAt(table.getSelectedRow(), 1);
 			String descricao = (String) table.getValueAt(table.getSelectedRow(), 2);
 			int quantidade = (int) table.getValueAt(table.getSelectedRow(), 3);
-			float preco = (float) table.getValueAt(table.getSelectedRow(), 4);
+			String preco = (String) table.getValueAt(table.getSelectedRow(), 4);
 			String marca = (String) table.getValueAt(table.getSelectedRow(), 5);
 			String categoria = (String) table.getValueAt(table.getSelectedRow(), 6);
 			Telaalterar telaAlterar = new Telaalterar();
 			telaAlterar.preenchercampos(codigo, codigodebarra, descricao, quantidade, preco, marca, categoria);
 			telaAlterar.setVisible(true);
-			telaAlterar.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			telaAlterar.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			telaAlterar.setLocationRelativeTo(null);
 			
 			}
@@ -240,5 +229,32 @@ public class Teladois extends Telaum implements ActionListener {
 				e1.printStackTrace();
 			}
 		}
+	private void avisodetalhes() {
+		int tabela = 0;
+		tabela = table.getSelectedColumnCount();
+		if(tabela==0) {
+		JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+		}else {
+			mudardados();
+		}
+	}
+	private void avisodeletar() {
+		int tabela = 0;
+		tabela = table.getSelectedColumnCount();
+		if(tabela==0) {
+			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+			atualizar();
+		}
+		else if(tabela==1) {
+			Object[] opcoes = {"SIM" , "NÃO"}; 
+			int valor = JOptionPane.showOptionDialog(null, "DESEJA REALMENTE EXCLUIR?","EXCLUIR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);
+			if(valor == 0) {
+				excluirdados();
+			    atualizar();
+		}else if(tabela==1) {
+			atualizar();
+		}
+	}
 }
+	}
 	
