@@ -75,7 +75,7 @@ public class Telaalterar extends JFrame {
 		setResizable(false);
 		setTitle("TELA ALTERAR");
 		setType(Type.UTILITY);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 566, 429);
 		contentPane = new JPanel();
 		contentPane.setLayout(null);

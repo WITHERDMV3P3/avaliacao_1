@@ -201,14 +201,22 @@ public class Teladois extends Telaum implements ActionListener {
 				for (int linha :table.getSelectedRows()) {
 	              registro.setInt(1,Integer.parseInt(table.getValueAt( linha , 0).toString()));
 	          registro.execute();
+	          atualizar();
 	          }
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 		}
 	}
 	public void mudardados() {
+		DefaultTableModel model1 = null;
+		
 			try {
-			DefaultTableModel model1 = (DefaultTableModel) table.getModel();
+			model1 = (DefaultTableModel) table.getModel();
+			int tabela = 0;
+			tabela = table.getSelectedColumnCount();
+			if(tabela==0) {
+			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+			}else {
 			model1.getValueAt(table.getSelectedRow(),0).toString();
 			int codigo = (int) table.getValueAt(table.getSelectedRow(), 0);
 			String codigodebarra = (String) table.getValueAt(table.getSelectedRow(), 1);
@@ -223,7 +231,7 @@ public class Teladois extends Telaum implements ActionListener {
 			telaAlterar.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			telaAlterar.setLocationRelativeTo(null);
 			
-			}
+			}}
 			 catch (Exception e1){
 				e1.printStackTrace();
 			}
@@ -240,19 +248,23 @@ public class Teladois extends Telaum implements ActionListener {
 	private void avisodeletar() {
 		int tabela = 0;
 		tabela = table.getSelectedColumnCount();
-		if(tabela==0) {
-			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
-		}
-		else if(tabela==1) {
+		if(tabela==1){
 			Object[] opcoes = {"SIM" , "NÃO"}; 
+			tabela = 0;
 			int valor = JOptionPane.showOptionDialog(null, "DESEJA REALMENTE EXCLUIR?","EXCLUIR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);
 			if(valor == 0) {
 				excluirdados();
-			    atualizar();
-		}else if(tabela==1) {
-			atualizar();
+				atualizar();
+				JOptionPane.showMessageDialog(null, "DADOS EXCLUIDOS COM SUCESSO", "ATENÇÃO", 1);
+				table.clearSelection();
+				}
+			else {
+				atualizar();}
+			}
+		else if(tabela==0) {
+			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
 		}
+			}
 	}
-}
-	}
+	
 	
