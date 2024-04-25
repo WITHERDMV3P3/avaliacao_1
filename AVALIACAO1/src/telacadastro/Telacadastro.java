@@ -35,6 +35,7 @@ import javax.swing.SwingConstants;
 import java.awt.Cursor;
 import javax.swing.JTextArea;
 import java.awt.Point;
+import java.awt.Color;
 
 public class Telacadastro extends JFrame {
 
@@ -149,6 +150,11 @@ public class Telacadastro extends JFrame {
 		contentPane.add(textField_6);
 /////////////////////////////////////////////////////////////////////////////////////////////
 		btnNewButton = new JButton("INSERIR");
+		btnNewButton.setToolTipText("INSERIR DADOS NA TABELA PRODUTOS");
+		btnNewButton.setForeground(new Color(0, 0, 0));
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setOpaque(true);
+		btnNewButton.setBackground(Color.green);
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
 		btnNewButton.setBounds(36, 322, 122, 42);
 		contentPane.add(btnNewButton);
@@ -171,7 +177,12 @@ public class Telacadastro extends JFrame {
 /////////////////////////////////////////////////////////////////////////////////////////////
 		
 		btnLista = new JButton("LIMPAR CAMPOS");
+		btnLista.setToolTipText("LIMPAR CAMPOS DA TELA CADASTRO ");
+		btnLista.setForeground(new Color(0, 0, 0));
 		btnLista.setFont(new Font("Arial", Font.BOLD, 14));
+		btnLista.setContentAreaFilled(false);
+		btnLista.setOpaque(true);
+		btnLista.setBackground(Color.red);
 		btnLista.setBounds(202, 322, 160, 42);
 		contentPane.add(btnLista);
 		btnLista.addActionListener(new ActionListener(){
@@ -183,6 +194,8 @@ public class Telacadastro extends JFrame {
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////
 		btnLista_1 = new JButton("LISTA");
+		btnLista_1.setToolTipText("LISTA COM OS PRODUTOS INSERIDOS");
+		btnLista_1.setForeground(new Color(0, 0, 0));
 		btnLista_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -190,6 +203,9 @@ public class Telacadastro extends JFrame {
 			}
 		});
 		btnLista_1.setFont(new Font("Arial", Font.BOLD, 14));
+		btnLista_1.setContentAreaFilled(false);
+		btnLista_1.setOpaque(true);
+		btnLista_1.setBackground(Color.gray);
 		btnLista_1.setBounds(396, 322, 122, 42);
 		contentPane.add(btnLista_1);
 		

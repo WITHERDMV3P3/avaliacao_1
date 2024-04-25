@@ -1,5 +1,6 @@
 package telatabela;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Window.Type;
@@ -77,7 +78,6 @@ public class Telatabela extends Telacadastro implements ActionListener {
 	 */
 	public Telatabela() {
 		setTitle("TELA LISTA");
-		setType(Type.UTILITY);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 839, 500);
 		contentPane = new JPanel();
@@ -87,7 +87,11 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		contentPane.setLayout(null);
 		
 		btnDetalhes_1 = new JButton("DETALHES");
+		btnDetalhes_1.setToolTipText("MOSTRAR DETALHES DO PRODUTO");
 		btnDetalhes_1.setFont(new Font("Arial", Font.BOLD, 14));
+		btnDetalhes_1.setContentAreaFilled(false);
+		btnDetalhes_1.setOpaque(true);
+		btnDetalhes_1.setBackground(Color.yellow);
 		btnDetalhes_1.setBounds(655, 22, 122, 42);
 		contentPane.add(btnDetalhes_1);
 		btnDetalhes_1.addActionListener(new ActionListener() {
@@ -99,7 +103,11 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
+		btnDeletar.setToolTipText("DELETAR LINHA DA TABELA PRODUTO");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnDeletar.setContentAreaFilled(false);
+		btnDeletar.setOpaque(true);
+		btnDeletar.setBackground(Color.red);
 		btnDeletar.setBounds(509, 22, 122, 42);
 		contentPane.add(btnDeletar);
 		btnDeletar.addActionListener(new ActionListener() {
@@ -115,7 +123,11 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAtualizar = new JButton("ATUALIZAR");
+		btnAtualizar.setToolTipText("ATUALIZAR A TABELA PRODUTOS");
 		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnAtualizar.setContentAreaFilled(false);
+		btnAtualizar.setOpaque(true);
+		btnAtualizar.setBackground(Color.green);
 		btnAtualizar.setBounds(357, 22, 122, 42);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.addActionListener(new ActionListener() {
@@ -153,7 +165,12 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		});
 		
 		btnvoltar = new JButton("VOLTAR");
+		btnvoltar.setToolTipText("VOLTAR PARA A TELA INICIAL");
+		btnvoltar.setForeground(new Color(0, 0, 0));
 		btnvoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnvoltar.setContentAreaFilled(false);
+		btnvoltar.setOpaque(true);
+		btnvoltar.setBackground(Color.gray);
 		btnvoltar.setBounds(21, 22, 122, 42);
 		contentPane.add(btnvoltar);
 		btnvoltar.addActionListener(new ActionListener() {

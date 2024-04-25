@@ -1,5 +1,6 @@
 package telaalterar;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
@@ -67,6 +68,7 @@ public class Telaalterar extends JFrame {
 				try {
 					Telaalterar frame = new Telaalterar();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -147,7 +149,11 @@ public class Telaalterar extends JFrame {
 		
 		btnNewButton = new JButton("ALTERAR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
-		btnNewButton.setBounds(323, 265, 122, 42);
+		btnNewButton.setToolTipText("ALTERAR DADOS DA TABELA");
+		btnNewButton.setContentAreaFilled(false);
+		btnNewButton.setOpaque(true);
+		btnNewButton.setBackground(Color.yellow);
+		btnNewButton.setBounds(310, 264, 122, 42);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -168,8 +174,12 @@ public class Telaalterar extends JFrame {
 		contentPane.add(codigo);
 		
 		btnvoltar = new JButton("VOLTAR");
+		btnvoltar.setToolTipText("VOLTAR PARA\r\n A TELA DA TABELA");
 		btnvoltar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnvoltar.setBounds(135, 265, 122, 42);
+		btnvoltar.setContentAreaFilled(false);
+		btnvoltar.setOpaque(true);
+		btnvoltar.setBackground(Color.gray);
+		btnvoltar.setBounds(122, 264, 122, 42);
 		contentPane.add(btnvoltar);
 		btnvoltar.addActionListener(new ActionListener() {
 			@Override
