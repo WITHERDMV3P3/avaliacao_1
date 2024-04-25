@@ -1,4 +1,4 @@
-package telaum;
+package telacadastro;
 
 import java.awt.EventQueue;
 
@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorListener;
 
-import teladois.Teladois;
+import telatabela.Telatabela;
 
 import javax.swing.border.CompoundBorder;
 import java.awt.Frame;
@@ -36,7 +36,7 @@ import java.awt.Cursor;
 import javax.swing.JTextArea;
 import java.awt.Point;
 
-public class Telaum extends JFrame {
+public class Telacadastro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -59,7 +59,7 @@ public class Telaum extends JFrame {
 
 	///////////////////////////////////////////////////////////////////////////////////////
 	public static void main(String[] args) {
-		Telaum chamar = new Telaum();
+		Telacadastro chamar = new Telacadastro();
 		chamar.metodoum();
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ public class Telaum extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Telaum frame = new Telaum();
+					Telacadastro frame = new Telacadastro();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -81,7 +81,7 @@ public class Telaum extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Telaum() {
+	public Telacadastro() {
 		setResizable(false);
 		setTitle("TELA CADASTRO");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -200,11 +200,11 @@ public class Telaum extends JFrame {
 //////////////////////////////////////////////////////////////////////////////////////////////		
 	
 	public void janela() {
-		Teladois janeladois = new Teladois();
+		Telatabela janeladois = new Telatabela();
 		janeladois.setVisible(true);
-		janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		janeladois.setLocationRelativeTo(null);
 		janeladois.atualizar();
+		this.setVisible(false);
 	}
 	public void limpar() { // limpar os JTextFields para ficar vazio
 		textField.setText("");

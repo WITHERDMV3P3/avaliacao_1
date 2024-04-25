@@ -16,8 +16,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 
-import teladois.Teladois;
-import telaum.Telaum;
+import telacadastro.Telacadastro;
+import telatabela.Telatabela;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -27,6 +27,7 @@ import java.awt.Font;
 import java.awt.TextField;
 
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 public class Telaalterar extends JFrame {
 
@@ -47,6 +48,7 @@ public class Telaalterar extends JFrame {
 	private JButton btnNewButton;
 	private JTextField textField;
 	private JLabel codigo;
+	private JButton btnvoltar;
 
 	/**
 	 * Launch the application.
@@ -75,7 +77,7 @@ public class Telaalterar extends JFrame {
 		setResizable(false);
 		setTitle("TELA ALTERAR");
 		setType(Type.UTILITY);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 566, 429);
 		contentPane = new JPanel();
 		contentPane.setLayout(null);
@@ -145,8 +147,13 @@ public class Telaalterar extends JFrame {
 		
 		btnNewButton = new JButton("ALTERAR");
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
-		btnNewButton.setBounds(212, 265, 122, 42);
+		btnNewButton.setBounds(323, 265, 122, 42);
 		contentPane.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			alterardados();					
+			}});
 		
 		textField = new JTextField();
 		textField.setEditable(false);
@@ -159,17 +166,20 @@ public class Telaalterar extends JFrame {
 		codigo.setFont(new Font("Arial", Font.BOLD, 14));
 		codigo.setBounds(34, 62, 86, 18);
 		contentPane.add(codigo);
-		btnNewButton.addActionListener(new ActionListener() {
+		
+		btnvoltar = new JButton("VOLTAR");
+		btnvoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnvoltar.setBounds(135, 265, 122, 42);
+		contentPane.add(btnvoltar);
+		btnvoltar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			alterardados();					
-			}
-		});
-			
+			voltar();					
+			}});
 	}
 	
 	public void alterardados(){
-		Telaum telaum = new Telaum();
+		Telacadastro telaum = new Telacadastro();
 		Telaalterar telaalterar = new Telaalterar();
 		telaum.connect();
 			String sql = "UPDATE avaliacao SET codigodebarra = ?, descricao = ?, quantidade = ? , preco= ?, marca = ?, categoria = ? WHERE id = ? ";
@@ -188,7 +198,8 @@ public class Telaalterar extends JFrame {
 				System.out.println(e.getMessage());
 		}
 			JOptionPane.showMessageDialog(null, "DADOS ATUALIZADOS COM SUCESSO!!!","ATENÇÃO",1);
-
+			Telatabela teladois = new Telatabela();
+			teladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	public void preenchercampos(int codigo, String codigodebarra, String descricao, int quantidade, String preco, String marca, String categoria ) {
 		textField.setText(String.valueOf(codigo));
@@ -199,5 +210,14 @@ public class Telaalterar extends JFrame {
 		textField_5.setText(marca);
 		textField_6.setText(categoria);
 	}
-}
+		private void voltar() {
+			Telatabela janeladois = new Telatabela();
+			janeladois.setVisible(true);
+			janeladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			janeladois.setLocationRelativeTo(null);
+			janeladois.atualizar();
+			this.setVisible(false);		
+		}
+	}
+
 

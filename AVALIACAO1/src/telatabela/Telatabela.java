@@ -1,4 +1,4 @@
-package teladois;
+package telatabela;
 
 import java.awt.EventQueue;
 import java.awt.Frame;
@@ -30,9 +30,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import telaalterar.Telaalterar;
-import telaum.Telaum;
+import telacadastro.Telacadastro;
 
-public class Teladois extends Telaum implements ActionListener {
+public class Telatabela extends Telacadastro implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -42,12 +42,13 @@ public class Teladois extends Telaum implements ActionListener {
 	private JScrollPane scrollPane;
 	private JButton btnAtualizar;
 	private JButton btnDetalhes_1;
+	private JButton btnvoltar;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		Teladois chamar2 = new Teladois();
+		Telatabela chamar2 = new Telatabela();
 		chamar2.metododois();
 		
 	}
@@ -61,7 +62,7 @@ public class Teladois extends Telaum implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Teladois frame = new Teladois();
+					Telatabela frame = new Telatabela();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -74,10 +75,10 @@ public class Teladois extends Telaum implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Teladois() {
+	public Telatabela() {
 		setTitle("TELA LISTA");
 		setType(Type.UTILITY);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 839, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new CompoundBorder());
@@ -87,7 +88,7 @@ public class Teladois extends Telaum implements ActionListener {
 		
 		btnDetalhes_1 = new JButton("DETALHES");
 		btnDetalhes_1.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDetalhes_1.setBounds(488, 22, 122, 42);
+		btnDetalhes_1.setBounds(655, 22, 122, 42);
 		contentPane.add(btnDetalhes_1);
 		btnDetalhes_1.addActionListener(new ActionListener() {
 			
@@ -99,7 +100,7 @@ public class Teladois extends Telaum implements ActionListener {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnDeletar.setBounds(342, 22, 122, 42);
+		btnDeletar.setBounds(509, 22, 122, 42);
 		contentPane.add(btnDeletar);
 		btnDeletar.addActionListener(new ActionListener() {
 			
@@ -115,7 +116,7 @@ public class Teladois extends Telaum implements ActionListener {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAtualizar = new JButton("ATUALIZAR");
 		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
-		btnAtualizar.setBounds(190, 22, 122, 42);
+		btnAtualizar.setBounds(357, 22, 122, 42);
 		contentPane.add(btnAtualizar);
 		btnAtualizar.addActionListener(new ActionListener() {
 			@Override
@@ -125,7 +126,6 @@ public class Teladois extends Telaum implements ActionListener {
 			}
 
 			private void atualizado() {
-				// TODO Auto-generated method stub
 				JOptionPane.showMessageDialog(null, "ATUALIZADO COM SUCESSO","ATENÇÃO",1);
 			}
 		});
@@ -151,6 +151,19 @@ public class Teladois extends Telaum implements ActionListener {
 				return columnTypes[columnIndex];
 			}
 		});
+		
+		btnvoltar = new JButton("VOLTAR");
+		btnvoltar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnvoltar.setBounds(21, 22, 122, 42);
+		contentPane.add(btnvoltar);
+		btnvoltar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				voltar();
+			}
+		});
+		
 		table.getColumnModel().getColumn(1).setPreferredWidth(142);
 		table.getColumnModel().getColumn(2).setPreferredWidth(144);
 		table.getColumnModel().getColumn(3).setPreferredWidth(108);
@@ -159,7 +172,7 @@ public class Teladois extends Telaum implements ActionListener {
 		table.getColumnModel().getColumn(6).setPreferredWidth(100);
 	}
 	public void atualizar() {
-		Telaum telaum = new Telaum();
+		Telacadastro telaum = new Telacadastro();
 		DefaultTableModel model1 = (DefaultTableModel) table.getModel();	
 		model1.setRowCount(0);
 		
@@ -192,9 +205,16 @@ public class Teladois extends Telaum implements ActionListener {
         System.out.println("Erro ao fechar os recursos: " + e.getMessage());
     }
 		}
+	
+	private void voltar() {
+		Telacadastro janelaum = new Telacadastro();
+		janelaum.setVisible(true);
+		janelaum.setLocationRelativeTo(null);
+		this.setVisible(false);		
+	}
 			
 	public void excluirdados() {
-		JFrame telaum = new Telaum();
+		JFrame telaum = new Telacadastro();
 		String sql = "DELETE from avaliacao where id=?";
 			try(Connection bancoavaliacao = this.connect();
 					PreparedStatement registro = bancoavaliacao.prepareStatement(sql)){
@@ -228,8 +248,8 @@ public class Teladois extends Telaum implements ActionListener {
 			Telaalterar telaAlterar = new Telaalterar();
 			telaAlterar.preenchercampos(codigo, codigodebarra, descricao, quantidade, preco, marca, categoria);
 			telaAlterar.setVisible(true);
-			telaAlterar.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			telaAlterar.setLocationRelativeTo(null);
+			this.setVisible(false);
 			
 			}}
 			 catch (Exception e1){
