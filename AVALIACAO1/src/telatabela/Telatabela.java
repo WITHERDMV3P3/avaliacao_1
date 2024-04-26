@@ -81,17 +81,19 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 839, 500);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setBorder(new CompoundBorder());
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		btnDetalhes_1 = new JButton("DETALHES");
+		btnDetalhes_1.setForeground(new Color(255, 255, 255));
 		btnDetalhes_1.setToolTipText("MOSTRAR DETALHES DO PRODUTO");
 		btnDetalhes_1.setFont(new Font("Arial", Font.BOLD, 14));
 		btnDetalhes_1.setContentAreaFilled(false);
 		btnDetalhes_1.setOpaque(true);
-		btnDetalhes_1.setBackground(Color.yellow);
+		btnDetalhes_1.setBackground(new Color(255, 204, 0));
 		btnDetalhes_1.setBounds(655, 22, 122, 42);
 		contentPane.add(btnDetalhes_1);
 		btnDetalhes_1.addActionListener(new ActionListener() {
@@ -103,6 +105,7 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnDeletar = new JButton("DELETAR");
+		btnDeletar.setForeground(new Color(255, 255, 255));
 		btnDeletar.setToolTipText("DELETAR LINHA DA TABELA PRODUTO");
 		btnDeletar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnDeletar.setContentAreaFilled(false);
@@ -123,6 +126,7 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		btnAtualizar = new JButton("ATUALIZAR");
+		btnAtualizar.setForeground(new Color(255, 255, 255));
 		btnAtualizar.setToolTipText("ATUALIZAR A TABELA PRODUTOS");
 		btnAtualizar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnAtualizar.setContentAreaFilled(false);
@@ -138,7 +142,7 @@ public class Telatabela extends Telacadastro implements ActionListener {
 			}
 
 			private void atualizado() {
-				JOptionPane.showMessageDialog(null, "ATUALIZADO COM SUCESSO","ATENÇÃO",1);
+				JOptionPane.showMessageDialog(null, "Atualizado com sucesso!!!","ATENÇÃO",1);
 			}
 		});
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
@@ -166,7 +170,7 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		
 		btnvoltar = new JButton("VOLTAR");
 		btnvoltar.setToolTipText("VOLTAR PARA A TELA INICIAL");
-		btnvoltar.setForeground(new Color(0, 0, 0));
+		btnvoltar.setForeground(new Color(255, 255, 255));
 		btnvoltar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnvoltar.setContentAreaFilled(false);
 		btnvoltar.setOpaque(true);
@@ -252,7 +256,7 @@ public class Telatabela extends Telacadastro implements ActionListener {
 			int tabela = 0;
 			tabela = table.getSelectedColumnCount();
 			if(tabela==0) {
-			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+			JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para continuar", "ATENÇÃO", 0);
 			}else {
 			model1.getValueAt(table.getSelectedRow(),0).toString();
 			int codigo = (int) table.getValueAt(table.getSelectedRow(), 0);
@@ -266,8 +270,6 @@ public class Telatabela extends Telacadastro implements ActionListener {
 			telaAlterar.preenchercampos(codigo, codigodebarra, descricao, quantidade, preco, marca, categoria);
 			telaAlterar.setVisible(true);
 			telaAlterar.setLocationRelativeTo(null);
-			this.setVisible(false);
-			
 			}}
 			 catch (Exception e1){
 				e1.printStackTrace();
@@ -277,7 +279,7 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		int tabela = 0;
 		tabela = table.getSelectedColumnCount();
 		if(tabela==0) {
-		JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+		JOptionPane.showMessageDialog(null, "Selecione uma linha na tabela para continuar!", "ATENÇÃO", 0);
 		}else {
 			mudardados();
 		}
@@ -286,20 +288,20 @@ public class Telatabela extends Telacadastro implements ActionListener {
 		int tabela = 0;
 		tabela = table.getSelectedColumnCount();
 		if(tabela==1){
-			Object[] opcoes = {"SIM" , "NÃO"}; 
+			Object[] opcoes = {"Sim" , "Não"}; 
 			tabela = 0;
-			int valor = JOptionPane.showOptionDialog(null, "DESEJA REALMENTE EXCLUIR?","EXCLUIR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);
+			int valor = JOptionPane.showOptionDialog(null, "Deseja realmente excluir?","EXCLUIR",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,opcoes,opcoes[1]);
 			if(valor == 0) {
 				excluirdados();
 				atualizar();
-				JOptionPane.showMessageDialog(null, "DADOS EXCLUIDOS COM SUCESSO", "ATENÇÃO", 1);
+				JOptionPane.showMessageDialog(null, "Dados excluidos com sucesso!", "ATENÇÃO", 1);
 				table.clearSelection();
 				}
 			else {
 				atualizar();}
 			}
 		else if(tabela==0) {
-			JOptionPane.showMessageDialog(null, "SELECIONE UMA LINHA DA TABELA PARA CONTINUAR", "ATENÇÃO", 0);
+			JOptionPane.showMessageDialog(null, "Selecione uma linha da tabela para continuar", "ATENÇÃO", 0);
 		}
 			}
 	}

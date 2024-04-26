@@ -82,77 +82,91 @@ public class Telaalterar extends JFrame {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 566, 429);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(192, 192, 192));
 		contentPane.setLayout(null);
 		contentPane.setBorder(new CompoundBorder());
 
 		setContentPane(contentPane);
 		
 		textField_1 = new JTextField();
+		textField_1.setToolTipText("ALTERAR CODIGO DE BARRAS DO PRODUTO");
 		textField_1.setColumns(10);
 		textField_1.setBounds(180, 82, 291, 20);
 		contentPane.add(textField_1);
 		
 		lblCdigoDeBarras = new JLabel("Código de Barras");
+		lblCdigoDeBarras.setForeground(new Color(255, 255, 255));
 		lblCdigoDeBarras.setFont(new Font("Arial", Font.BOLD, 14));
 		lblCdigoDeBarras.setBounds(180, 62, 122, 18);
 		contentPane.add(lblCdigoDeBarras);
 		
 		lblDescrio = new JLabel("Descrição*");
+		lblDescrio.setForeground(new Color(255, 255, 255));
 		lblDescrio.setFont(new Font("Arial", Font.BOLD, 14));
 		lblDescrio.setBounds(34, 122, 86, 18);
 		contentPane.add(lblDescrio);
 		
 		textField_2 = new JTextField();
+		textField_2.setToolTipText("ALTERAR DESCRIÇÃO DO PRODUTO");
 		textField_2.setColumns(10);
 		textField_2.setBounds(34, 142, 482, 20);
 		contentPane.add(textField_2);
 		
 		lblQuantidade = new JLabel("Quantidade*");
+		lblQuantidade.setForeground(new Color(255, 255, 255));
 		lblQuantidade.setFont(new Font("Arial", Font.BOLD, 14));
 		lblQuantidade.setBounds(34, 187, 86, 18);
 		contentPane.add(lblQuantidade);
 		
 		textField_3 = new JTextField();
+		textField_3.setToolTipText("ALTERAR QUANTIDADE DO PRODUTO");
 		textField_3.setColumns(10);
 		textField_3.setBounds(34, 207, 99, 20);
 		contentPane.add(textField_3);
 		
 		lblPreo = new JLabel("Preço*");
+		lblPreo.setForeground(new Color(255, 255, 255));
 		lblPreo.setFont(new Font("Arial", Font.BOLD, 14));
 		lblPreo.setBounds(166, 187, 52, 18);
 		contentPane.add(lblPreo);
 		
 		textField_4 = new JTextField();
+		textField_4.setToolTipText("ALTERAR QUANTIDADE DO PRODUTO");
 		textField_4.setColumns(10);
 		textField_4.setBounds(166, 207, 99, 20);
 		contentPane.add(textField_4);
 		
 		lblMarca = new JLabel("Marca*");
+		lblMarca.setForeground(new Color(255, 255, 255));
 		lblMarca.setFont(new Font("Arial", Font.BOLD, 14));
 		lblMarca.setBounds(291, 187, 86, 18);
 		contentPane.add(lblMarca);
 		
 		textField_5 = new JTextField();
+		textField_5.setToolTipText("ALTERAR MARCA DO PRODUTO");
 		textField_5.setColumns(10);
 		textField_5.setBounds(291, 207, 99, 20);
 		contentPane.add(textField_5);
 		
 		lblCategoria = new JLabel("Categoria");
+		lblCategoria.setForeground(new Color(255, 255, 255));
 		lblCategoria.setFont(new Font("Arial", Font.BOLD, 14));
 		lblCategoria.setBounds(417, 187, 86, 18);
 		contentPane.add(lblCategoria);
 		
 		textField_6 = new JTextField();
+		textField_6.setToolTipText("ALTERAR CATEGORIA DO PRODUTO");
 		textField_6.setColumns(10);
 		textField_6.setBounds(417, 207, 99, 20);
 		contentPane.add(textField_6);
 		
 		btnNewButton = new JButton("ALTERAR");
+		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setFont(new Font("Arial", Font.BOLD, 14));
 		btnNewButton.setToolTipText("ALTERAR DADOS DA TABELA");
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setOpaque(true);
-		btnNewButton.setBackground(Color.yellow);
+		btnNewButton.setBackground(Color.green);
 		btnNewButton.setBounds(310, 264, 122, 42);
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -169,11 +183,13 @@ public class Telaalterar extends JFrame {
 		contentPane.add(textField);
 		
 		codigo = new JLabel("Código");
+		codigo.setForeground(new Color(255, 255, 255));
 		codigo.setFont(new Font("Arial", Font.BOLD, 14));
 		codigo.setBounds(34, 62, 86, 18);
 		contentPane.add(codigo);
 		
 		btnvoltar = new JButton("VOLTAR");
+		btnvoltar.setForeground(new Color(255, 255, 255));
 		btnvoltar.setToolTipText("VOLTAR PARA\r\n A TELA DA TABELA");
 		btnvoltar.setFont(new Font("Arial", Font.BOLD, 14));
 		btnvoltar.setContentAreaFilled(false);
@@ -207,7 +223,7 @@ public class Telaalterar extends JFrame {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 		}
-			JOptionPane.showMessageDialog(null, "DADOS ATUALIZADOS COM SUCESSO!!!","ATENÇÃO",1);
+			JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!!!","ATENÇÃO",1);
 			Telatabela teladois = new Telatabela();
 			teladois.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}

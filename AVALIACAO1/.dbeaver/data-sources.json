@@ -1,0 +1,66 @@
+{
+	"folders": {},
+	"connections": {
+		"sqlite_jdbc-18eab68bed1-8ffe0e2c9f4a75e": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "avaliacao",
+			"save-password": true,
+			"configuration": {
+				"database": "D:\\anderson\\avaliacao",
+				"url": "jdbc:sqlite:D:\\anderson\\avaliacao",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-18f17253479-531420554a3a9eb7": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "bancologin.db",
+			"save-password": true,
+			"configuration": {
+				"database": "D:\\anderson\\banco de dados biblioteca\\bancologin.db",
+				"url": "jdbc:sqlite:D:\\anderson\\banco de dados biblioteca\\bancologin.db",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		},
+		"mysql8-18f17dc4727-427a70f568b46ac2": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "localhost",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"url": "jdbc:mysql://127.0.0.1:3306/biblioteca_login",
+				"configurationType": "URL",
+				"home": "mysql_client",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		}
+	},
+	"virtual-models": {"sqlite_jdbc-18eab68bed1-8ffe0e2c9f4a75e":{":avaliacao":{"constraints":{"VIRTUAL_PK":{"type":"vpk","attributes":["id"]}}}}},
+	"connection-types": {
+		"dev": {
+			"name": "Desenvolvimento",
+			"color": "255,255,255",
+			"description": "Banco de dados de desenvolvimento",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
+		}
+	}
+}
